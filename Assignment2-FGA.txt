@@ -1,0 +1,3 @@
+Brian Habib Putra Purnama
+Source Code Assignment2
+https://github.com/Brianhabib252/FGA-Golang.git

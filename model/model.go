@@ -8,9 +8,16 @@ import (
 	"gorm.io/gorm"
 )
 
+// user model
+type User struct {
+	gorm.Model
+	Email    string `gorm:"unique"`
+	Password string
+}
+
 // Item model
 type Item struct {
-	ID          uint   `gorm:"primaryKey"`
+	ID          uint   `gorm:"primaryKey",json:"lineItemId"`
 	ItemCode    string `json:"itemCode"`
 	Description string
 	Quantity    int
@@ -22,7 +29,7 @@ type Order struct {
 	ID            uint      `gorm:"primaryKey"`
 	Customer_name string    `json:"CustomerName"`
 	OrderedAt     time.Time `json:"OrderedAt"`
-	Items         []Item    `gorm:"foreignKey:OrderID",json:"items"`
+	Items         []Item    `gorm:"foreignKey:OrderID"`
 }
 
 var db *gorm.DB
@@ -41,6 +48,7 @@ func StartdB() {
 		fmt.Println("Failed to migrate tables:", err)
 		return
 	}
+	db.AutoMigrate(&User{})
 
 }
 
